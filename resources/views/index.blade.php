@@ -35,7 +35,7 @@
 <body>
 
 <div class="container">
-    <form action="./" method="get" id="formid">
+    <form action="/api/money/add" method="POST" id="formid">
         <div class="imp_content">
             <div class="row new_row">
                 <div class="col-md-1 col-xs-1"></div>
