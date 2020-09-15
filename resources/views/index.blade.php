@@ -35,8 +35,8 @@
 <body>
 
 <div class="container">
-    {{--    <form action="/api/money/add" method="POST" id="formid">--}}
-    <form method="POST" id="formid">
+        <form action="/api/money/add" method="POST" id="formid">
+{{--    <form method="POST" id="formid">--}}
         <div class="imp_content">
             <div class="row new_row">
                 <div class="col-md-1 col-xs-1"></div>
@@ -92,25 +92,25 @@
         // $('.notice_type').html(message);
     });
     $('.submit').click(function () {
-        // $('#formid').submit();
-        var type = $("input[type='radio']:checked").val();
-        var num = $('.num').val();
-        var content = $('.content').val();
-        if (!num) {
-            alert('num不可以为空！')
-        } else {
-            $.ajax({
-                url: "/api/money/add",
-                dataType: "json",
-                type: "POST",
-                data: {type: type, num: num, content: content},
-                success: function (response) {
-                    alert(response.msg)
-                },
-                error: function () {
-                }
-            });
-        }
+        $('#formid').submit();
+        // var type = $("input[type='radio']:checked").val();
+        // var num = $('.num').val();
+        // var content = $('.content').val();
+        // if (!num) {
+        //     alert('num不可以为空！')
+        // } else {
+        //     $.ajax({
+        //         url: "/api/money/add",
+        //         dataType: "json",
+        //         type: "POST",
+        //         data: {type: type, num: num, content: content},
+        //         success: function (response) {
+        //             alert(response.msg)
+        //         },
+        //         error: function () {
+        //         }
+        //     });
+        // }
     });
 </script>
 <script type="text/javascript">
