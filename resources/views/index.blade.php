@@ -35,7 +35,8 @@
 <body>
 
 <div class="container">
-    <form action="/api/money/add" method="POST" id="formid">
+    {{--    <form action="/api/money/add" method="POST" id="formid">--}}
+    <form method="POST" id="formid">
         <div class="imp_content">
             <div class="row new_row">
                 <div class="col-md-1 col-xs-1"></div>
@@ -57,7 +58,8 @@
             <div class="row new_row">
                 <div class="col-md-1 col-xs-1"></div>
                 <div class="col-md-2 col-xs-11 title_label"><label for="content">content</label></div>
-                <div class="col-md-8 col-xs-8"><textarea row="10" cols="20" name="content">备注</textarea></div>
+                <div class="col-md-8 col-xs-8"><textarea row="10" cols="20" name="content" class="content">备注</textarea>
+                </div>
                 <div class="col-md-1 col-xs-1"></div>
             </div>
             <div class="row submit_row">
@@ -72,8 +74,8 @@
 
     </form>
     <span class="notice_type"></span>
-{{--    <span class="notice_num"></span>--}}
-{{--    <span class="notice_content"></span>--}}
+    {{--    <span class="notice_num"></span>--}}
+    {{--    <span class="notice_content"></span>--}}
 </div>
 <script>
     $('.container').click(function () {
@@ -90,9 +92,24 @@
         // $('.notice_type').html(message);
     });
     $('.submit').click(function () {
-
-        if (1) {
-            $('#formid').submit();
+        // $('#formid').submit();
+        var type = $("input[type='radio']:checked").val();
+        var num = $('.num').val();
+        var content = $('.content').val();
+        if (!num) {
+            alert('num不可以为空！')
+        } else {
+            $.ajax({
+                url: "/api/money/add",
+                dataType: "json",
+                type: "POST",
+                data: {type: type, num: num, content: content},
+                success: function (response) {
+                    alert(response.msg)
+                },
+                error: function () {
+                }
+            });
         }
     });
 </script>
