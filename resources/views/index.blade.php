@@ -41,17 +41,17 @@
                 <div class="col-md-1 col-xs-1"></div>
                 <div class="col-md-2 col-xs-11 title_label"><label for="num">type</label></div>
                 <div class="col-md-4 col-xs-4"><label><input name="type" type="radio" value="1" checked/>
-                        <div class="btn btn-danger">consume</div>
+                        <div class="btn btn-danger">out</div>
                     </label></div>
                 <div class="col-md-4 col-xs-4"><label><input name="type" type="radio" value="2"/>
-                        <div class="btn btn-warning">income</div>
+                        <div class="btn btn-warning">in</div>
                     </label></div>
                 <div class="col-md-1 col-xs-2"></div>
             </div>
             <div class="row new_row">
                 <div class="col-md-1 col-xs-1"></div>
                 <div class="col-md-2 col-xs-11 title_label"><label for="num">num</label></div>
-                <div class="col-md-8 col-xs-8"><input type="text" name="num" id="num"></div>
+                <div class="col-md-8 col-xs-8"><input type="text" name="num" id="num" class="num"></div>
                 <div class="col-md-1 col-xs-1"></div>
             </div>
             <div class="row new_row">
@@ -71,8 +71,24 @@
         </div>
 
     </form>
+    <span class="notice_type"></span>
+{{--    <span class="notice_num"></span>--}}
+{{--    <span class="notice_content"></span>--}}
 </div>
 <script>
+    $('.container').click(function () {
+        var type = $("input[type='radio']:checked").val();
+        var message = '';
+        if (type == 1) {
+            message += '消费';
+        } else if (type == 2) {
+            message += '收入';
+        }
+        // var num=$('.num').val();
+        $('.notice_type').html(message);
+        // $('.notice_num').html(num);
+        // $('.notice_type').html(message);
+    });
     $('.submit').click(function () {
 
         if (1) {
