@@ -11,11 +11,6 @@ class MoneyController extends Controller
 {
     public function add()
     {
-        $mobile_model = new Mobile();
-        $mobile = $mobile_model->getPhoneNumber();
-        var_dump($mobile_model->getIP().'</br>');
-        var_dump($mobile_model->getPhoneType().'</br>');
-        var_dump($mobile);exit;
         $params = $_POST;
         $type = $params['type'];
         $num = $params['num'];
