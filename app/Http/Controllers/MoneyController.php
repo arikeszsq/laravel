@@ -20,6 +20,20 @@ class MoneyController extends Controller
             'content' => $content,
             'create_time' => date('Y-m-d H:i:s', time())
         ];
-        DB::table('zsq_money')->insert($data);
+        $ret = DB::table('zsq_money')->insert($data);
+        if ($ret == 1) {
+            return json_encode([
+                'msg' => 'success',
+                'code' => 200,
+                'data' => $data
+            ]);
+        } else {
+            return json_encode([
+                'msg' => 'fail',
+                'code' => 5001,
+                'data' => $data
+            ]);
+        }
+
     }
 }
