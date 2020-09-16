@@ -33,11 +33,10 @@ class ZttWebController extends AdminController
         $grid->column('count_money', __('计算金额'));
         $grid->column('contacter', __('联系人'));
         $grid->column('mobile', __('手机号'));
-        $grid->column('ensure_picture', __('确认效果图'));
-
-        $grid->column('program', __('程序'));
-        $grid->column('info', __('资料'));
-        $grid->column('online', __('上线'));
+        $grid->column('ensure_picture', __('效果图'))->using([0 => '否', 1 => '是']);
+        $grid->column('program', __('程序'))->using([0 => '否', 1 => '是']);
+        $grid->column('info', __('资料'))->using([0 => '否', 1 => '是']);
+        $grid->column('online', __('上线'))->using([0 => '否', 1 => '是']);
 
         $grid->column('domain', __('域名'));
         $grid->column('status', __('状态'));
