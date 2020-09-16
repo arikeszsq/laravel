@@ -26,7 +26,7 @@ class ZttWebController extends AdminController
     {
         $grid = new Grid(new ZttWeb());
 
-        $grid->column('id', __('ID'));
+        $grid->column('id', __('ID'))->color('red')->hide();
         $grid->column('title', __('名称'));
         $grid->column('is_h5', __('是H5'));
         $grid->column('money', __('金额'));
@@ -36,8 +36,8 @@ class ZttWebController extends AdminController
         $grid->column('ensure_picture', __('确认效果图'));
         $grid->column('domain', __('域名'));
         $grid->column('status', __('状态'));
-        $grid->column('updated_at', __('更新时间'));
-        $grid->column('created_at', __('添加时间'));
+        $grid->column('updated_at', __('更新时间'))->hide();
+        $grid->column('created_at', __('添加时间'))->hide();
 
         return $grid;
     }
@@ -75,6 +75,12 @@ class ZttWebController extends AdminController
      */
     protected function form()
     {
+        $directors = [
+            1 => '已完成',
+            2 => '待处理',
+            3 => '处理中',
+        ];
+
         $form = new Form(new ZttWeb());
 
         $form->text('title', __('名称'));
@@ -82,11 +88,20 @@ class ZttWebController extends AdminController
         $form->text('money', __('金额'));
         $form->text('count_money', __('计算金额'));
         $form->text('contacter', __('联系人'));
-        $form->number('mobile', __('手机号'));
+        $form->text('mobile', __('手机号'));
         $form->switch('ensure_picture', __('确认效果图'));
         $form->text('domain', __('域名'));
-        $form->number('status', __('状态'));
-
+        $form->select('status', '状态')->options($directors);
+        $form->footer(function ($footer) {
+            // 去掉`重置`按钮
+            $footer->disableReset();
+            // 去掉`查看`checkbox
+            $footer->disableViewCheck();
+            // 去掉`继续编辑`checkbox
+            $footer->disableEditingCheck();
+            // 去掉`继续创建`checkbox
+            $footer->disableCreatingCheck();
+        });
         return $form;
     }
 }
