@@ -43,6 +43,13 @@ class ZttWebController extends AdminController
         $grid->column('status', __('状态'));
         $grid->column('updated_at', __('更新时间'))->hide();
         $grid->column('created_at', __('添加时间'))->hide();
+        $grid->footer(function ($query) {
+            // 查询出已支付状态的订单总金额
+            $data_online = $query->where('online', 1)->sum('count_money');
+            $data_no_online = $query->where('online', 0)->sum('count_money');
+            $html = "<div style='padding: 10px;color:rebeccapurple;'>上线的金额 ： $data_online ;<span style='padding: 10px;color: #0d6aad;'>未上线的总金额 ： $data_no_online</span></div>";
+            return $html;
+        });
 
         return $grid;
     }
