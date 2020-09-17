@@ -33,15 +33,20 @@ class ZttWebController extends AdminController
         $grid->column('count_money', __('计算金额'));
         $grid->column('contacter', __('联系人'));
         $grid->column('mobile', __('手机号'));
-        $grid->column('ensure_picture', __('效果图'))->using([0 => '否', 1 => '是']);
-        $grid->column('program', __('程序'))->using([0 => '否', 1 => '是']);
-        $grid->column('info', __('资料'))->using([0 => '否', 1 => '是']);
-        $grid->column('online', __('上线'))->using([0 => '否', 1 => '是']);
-
+        $grid->column('ensure_picture', __('效果图'))->using([0 => '<span style="color: red;">否</span>', 1 => '是'])->sortable();
+        $grid->column('program', __('程序'))->using([0 => '<span style="color: #ca66ff;">否</span>', 1 => '是'])->sortable();
+        $grid->column('info', __('资料'))->using([0 => '<span style="color: #45ff35;">否</span>', 1 => '是'])->sortable();
+        $grid->column('online', __('上线'))->using([0 => '<span style="color: blue;">否</span>', 1 => '是'])->sortable();
         $grid->column('domain', __('域名'));
-        $grid->column('status', __('状态'));
+        $grid->column('status', __('状态'))->using([
+            1 => '<span style="color: blue;">已完成</span>',
+            2 => '<span style="color: #ff0a11;">待处理</span>',
+            3 => '<span style="color: #46ff20;">处理中</span>',
+        ])->sortable()->hide();
         $grid->column('updated_at', __('更新时间'))->hide();
         $grid->column('created_at', __('添加时间'))->hide();
+
+
         $grid->footer(function ($query) {
             // 查询出已支付状态的订单总金额
             $data_online = $query->where('online', 1)->sum('count_money');
@@ -49,7 +54,29 @@ class ZttWebController extends AdminController
             $html = "<div style='padding: 10px;color:rebeccapurple;'>上线的金额 ： $data_online ;<span style='padding: 10px;color: #0d6aad;'>未上线的总金额 ： $data_no_online</span></div>";
             return $html;
         });
-
+        $grid->filter(function($filter){
+            // 去掉默认的id过滤器
+            $filter->disableIdFilter();
+            $filter->like('title','名称')->placeholder('请输入。。。');
+            $filter->column(1/2, function ($filter) {
+                $filter->equal('ensure_picture','效果图')->radio([
+                    1 => '是',
+                    0 => '否',
+                ]);
+                $filter->equal('program','程序')->radio([
+                    1 => '是',
+                    0 => '否',
+                ]);
+                $filter->equal('info','资料')->radio([
+                    1 => '是',
+                    0 => '否',
+                ]);
+                $filter->equal('online','上线')->radio([
+                    1 => '是',
+                    0 => '否',
+                ]);
+            });
+        });
         return $grid;
     }
 
