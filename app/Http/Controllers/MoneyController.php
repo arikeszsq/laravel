@@ -4,7 +4,6 @@
 namespace App\Http\Controllers;
 
 
-use App\Models\Mobile;
 use Illuminate\Support\Facades\DB;
 
 class MoneyController extends Controller
@@ -36,5 +35,29 @@ class MoneyController extends Controller
             ]);
         }
 
+    }
+
+
+    public function getCountMoney()
+    {
+        $total_money = DB::table('zsq_money')
+            ->where('type', 1)
+            ->sum('num');
+        return json_encode([
+            'msg' => 'success',
+            'code' => 200,
+            'total_money' => $total_money
+        ]);
+    }
+
+    public function getList()
+    {
+        $list = DB::table('zsq_money')
+            ->get();
+        return json_encode([
+            'msg' => 'success',
+            'code' => 200,
+            'list' => $list
+        ]);
     }
 }
