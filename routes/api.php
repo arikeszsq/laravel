@@ -25,3 +25,6 @@ Route::any('money/getList','MoneyController@getList');
 Route::any('fund/getInfo','FundController@getInfo');
 
 Route::any('basic/info','BasicInfoController@info');
+
+Route::any('mail/send','MailController@send');
+

@@ -2,9 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 
-class Mobile extends Model
+class Mobile
 {
     /**
      *  函数名称:  getPhoneNumber
