@@ -16,7 +16,7 @@
 <div class="flex-center position-ref full-height">
     {{$name}}
     <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;劳累了一天，您辛苦了！</div>
-    <div>下面是您这一个月的数据报表，请您悉知，加油！</div>
+    <div>下面是您本月最新的数据报告，请您悉知，加油！</div>
     <div class="basic_info">上线金额：{{$total_online}}元</div>
     <div class="basic_info">未上线金额：{{$total_no_online}}元</div>
     <pre>

@@ -54,8 +54,8 @@ class SendEmail extends Command
             'total_no_online' => $data_no_online,
         ];
         Mail::send('emails.test', $data, function ($message) {
-//            $to = '752601354@qq.com';
-            $to = '18036161805@163.com';
+            $to = '752601354@qq.com';
+//            $to = '18036161805@163.com';
             $message->to($to)->subject('数据报表');
         });
     }
