@@ -30,12 +30,31 @@
         font-weight: bolder;
         font-size: 16px;
     }
+
+    td{
+        background-color: blue;
+        color: white;
+        font-size: 12px;
+        font-weight: bolder;
+        text-align: center;
+    }
+
+    td:nth-child(odd){
+        background-color: #4b646f;
+        color: white;
+        font-size: 12px;
+        font-weight: bolder;
+        text-align: center;
+    }
+
 </style>
 
 <body>
 
+<div class="basic_info" style="text-align: center;margin:10px auto;"></div>
+
 <div class="container">
-{{--        <form action="/api/money/add" method="POST" id="formid">--}}
+    {{--        <form action="/api/money/add" method="POST" id="formid">--}}
     <form method="POST" id="formid">
         <div class="imp_content">
             <div class="row new_row">
@@ -76,8 +95,52 @@
     <span class="notice_type"></span>
     {{--    <span class="notice_num"></span>--}}
     {{--    <span class="notice_content"></span>--}}
+
+    <div class="count_info"></div>
+    <table border=1  width="180" height="60">
+        <tr>
+            <td>张天龙</td>
+            <td>陈阳</td>
+            <td>许兴元</td>
+            <td>邱伏奇</td>
+        </tr>
+        <tr>
+            <td>陈子安</td>
+            <td>宋贝贝</td>
+            <td>历凯</td>
+        </tr>
+    </table>
+
 </div>
 <script>
+    $(document).ready(function () {
+        $.ajax({
+            url: "/api/basic/info",
+            dataType: "json",
+            type: "POST",
+            success: function (response) {
+                var info = '距离2021春节2-12，还有'+ response.gap_chunjie +'天</br>'
+                +'距离2021元旦，还有'+ response.gap_yuandan +'天</br>';
+
+                $('.basic_info').html(info)
+            }
+        });
+
+        $.ajax({
+            url: "/api/fund/getInfo",
+            dataType: "json",
+            type: "POST",
+            success: function (response) {
+                var info = '共计：' + response.data.total_money / 10000 + '万元</br>'
+                    + '园区：' + response.data.sip_money / 10000 + '万元</br>'
+                    + '市区：' + response.data.center_money / 10000 + '万元</br>'
+                    + '本月共计消费：'+response.data.consume_money + '</br>';
+                $('.count_info').html(info)
+            },
+            error: function () {
+            }
+        });
+    });
     $('.container').click(function () {
         var type = $("input[type='radio']:checked").val();
         var message = '';
