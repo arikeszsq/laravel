@@ -19,6 +19,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::any('money/add','MoneyController@add');
+
 Route::any('money/getCountMoney','MoneyController@getCountMoney');
 Route::any('money/getList','MoneyController@getList');
 
@@ -27,4 +28,8 @@ Route::any('fund/getInfo','FundController@getInfo');
 Route::any('basic/info','BasicInfoController@info');
 
 Route::any('mail/send','MailController@send');
+
+
+Route::middleware('cors')->any('vue/money/add','VueController@addMoney');
+Route::middleware('cors')->any('vue/money/list','VueController@listMoney');
 
