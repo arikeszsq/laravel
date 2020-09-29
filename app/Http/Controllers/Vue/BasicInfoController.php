@@ -36,13 +36,14 @@ class BasicInfoController extends BaseController
 
         $data = [
             ['name' => '本月总消费', 'value' => $consume_money],
+            ['name' => '房贷外消费约', 'value' => $consume_money - 5200],
             ['name' => 'prf总额', 'value' => $total_money],
             ['name' => 'prf园', 'value' => $sip_money],
             ['name' => 'prf市', 'value' => $center_money],
             ['name' => '本月税前收入', 'value' => $income_before_current_month],
             ['name' => '本月实际收入', 'value' => $income_true_current_month],
             ['name' => '本月其他收入', 'value' => $income_other_current_month],
-            ['name' => '最终结算', 'value' => $last_money],
+            ['name' => '最终结算', 'value' => intval($last_money)],
         ];
         return json_encode([
             'msg' => 'success',
