@@ -30,10 +30,11 @@ Route::group(['namespace' => 'Vue', 'prefix' => 'vue'], function () {
     Route::any('basic/info', 'BasicInfoController@info');
     Route::any('money/list', 'MoneyController@list');
     Route::any('money/add', 'MoneyController@add');
+    Route::any('money/delete', 'MoneyController@delete');
 });
 
 Route::group(['namespace' => 'Vue', 'middleware' => 'cors', 'prefix' => 'vue'], function () {
-    Route::any('money/delete', 'MoneyController@delete');
+//    Route::any('money/delete', 'MoneyController@delete');
 });
 
 /**

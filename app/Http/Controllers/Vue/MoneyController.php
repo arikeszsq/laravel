@@ -42,16 +42,16 @@ class MoneyController extends BaseController
 
     public function list()
     {
-        $params = $_POST;
-        $start_time = date('Y-m-01 00:00:00',time());
+        $params = request()->all();
+        $start_time = date('Y-m-01 00:00:00', time());
         $lists = DB::table('zsq_money')
-            ->where('create_time','>',$start_time)
-            ->orderBy('id','desc')
+            ->where('create_time', '>', $start_time)
+            ->orderBy('id', 'desc')
             ->get();
         $data = [];
         foreach ($lists as $list) {
             $data[] = [
-                'id'=>$list->id,
+                'id' => $list->id,
                 'type' => $list->type,
                 'num' => $list->num,
                 'content' => $list->content,
@@ -68,7 +68,9 @@ class MoneyController extends BaseController
 
     public function delete()
     {
-        var_dump($_POST);exit;
+        $params = request()->all();
+        $id = $params['id'];
+        DB::table('zsq_money')->where('id', $id)->delete();
         return json_encode([
             'msg' => 'success',
             'code' => 200,
