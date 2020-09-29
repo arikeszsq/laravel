@@ -45,18 +45,31 @@ class CountEveryMonth extends Command
 
     public function send()
     {
-        $current_month_01 = date('Y-m-01 00:00:00', time());
-        $consume_money = ZsqMoney::getMonthTotal();
+        $before_month_first_day = date('Y-m-01 00:00:00', strtotime('-1 month'));
+        $before_month_last_day = date('Y-m-t 23:59:59', strtotime('-1 month'));
+
+        $consume_money = DB::table('zsq_money')
+            ->where('type', 1)
+            ->where('create_time', '>', $before_month_first_day)
+            ->where('create_time', '<=', $before_month_last_day)
+            ->sum('num');
+
         $income_true_current_month = DB::table('zsq_salary')
-            ->where('get_time', '>', $current_month_01)
+            ->where('get_time', '>=', $before_month_first_day)
+            ->where('get_time', '<=', $before_month_last_day)
             ->sum('true_num');
+
         $income_before_current_month = DB::table('zsq_salary')
-            ->where('get_time', '>', $current_month_01)
+            ->where('get_time', '>=', $before_month_first_day)
+            ->where('get_time', '<=', $before_month_last_day)
             ->sum('before_num');
+
         $income_other_current_month = DB::table('zsq_money')
             ->where('type', 2)
-            ->where('create_time', '>', $current_month_01)
+            ->where('create_time', '>', $before_month_first_day)
+            ->where('create_time', '<=', $before_month_last_day)
             ->sum('num');
+
         $last_money = $income_other_current_month + $income_true_current_month - $consume_money;
 
         DB::table('zsq_monthly_count')->insert([
@@ -65,7 +78,7 @@ class CountEveryMonth extends Command
             'other' => $income_other_current_month,
             'consume' => $consume_money,
             'last' => $last_money,
-            'create_time' => date('Y-m-d H:i:s', time()),
+            'create_time' => $before_month_last_day,
         ]);
     }
 }
