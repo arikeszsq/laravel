@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Console\Commands\CountEveryMonth;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -14,6 +15,7 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         \App\Console\Commands\SendEmail::class,
+        CountEveryMonth::class,
         //
     ];
 
@@ -26,6 +28,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('command_send_email_everyday_17_00')->dailyAt('17:00');
+        $schedule->command('count_every_month_last')->everyFiveMinutes();
         // $schedule->command('inspire')->hourly();
     }
 
