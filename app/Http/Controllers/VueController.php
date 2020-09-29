@@ -13,10 +13,10 @@ class VueController extends Controller
         //前端发送的是json数据，laravel用request()->all()接收$_POST接受不到
         //原生用：file_get_contents('php://input')可以接收
         $params = request()->all();
-        $type = $params['type'];
+        $type = intval($params['type']);
         $num = $params['num'];
         $content = $params['content'];
-        $needed = $params['needed'];
+        $needed = intval($params['needed']);
         $data = [
             'type' => $type,
             'num' => $num,
