@@ -28,7 +28,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('command_send_email_everyday_17_00')->dailyAt('17:00');
-        $schedule->command('count_every_month_last')->everyFiveMinutes();
+        $schedule->command('count_every_month_last')->everyMinute();
         // $schedule->command('inspire')->hourly();
     }
 
