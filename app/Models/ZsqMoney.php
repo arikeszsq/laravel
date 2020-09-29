@@ -14,6 +14,6 @@ class ZsqMoney extends Model
         $consume_money = ZsqMoney::where('create_time','>',$current_month)
             ->where('type', 1)
             ->sum('num');
-        return $consume_money;
+        return intval($consume_money);
     }
 }
