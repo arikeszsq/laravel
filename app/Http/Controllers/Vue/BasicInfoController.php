@@ -20,10 +20,10 @@ class BasicInfoController extends BaseController
             ->sum('add_num');
         $total_money = DB::table('zsq_public_accumulation_funds')->sum('add_num');
         $data = [
-            'total_money' => $total_money,
-            'center_money' => $center_money,
-            'sip_money' => $sip_money,
-            'consume_money' => $consume_money
+            ['name' => '本月总消费', 'value' => $consume_money],
+            ['name' => 'prf总额', 'value' => $total_money],
+            ['name' => 'prf园', 'value' => $sip_money],
+            ['name' => 'prf市', 'value' => $center_money],
         ];
         return json_encode([
             'msg' => 'success',
