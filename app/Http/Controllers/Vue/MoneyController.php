@@ -1,14 +1,14 @@
 <?php
 
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Vue;
 
 
 use Illuminate\Support\Facades\DB;
 
-class VueController extends Controller
+class MoneyController extends BaseController
 {
-    public function addMoney()
+    public function add()
     {
         //前端发送的是json数据，laravel用request()->all()接收$_POST接受不到
         //原生用：file_get_contents('php://input')可以接收
@@ -40,24 +40,39 @@ class VueController extends Controller
         }
     }
 
-    public function listMoney()
+    public function list()
     {
-        $list = DB::table('zsq_money')
-            ->orderBy('id', 'desc')
+        $params = $_POST;
+        $start_time = date('Y-m-01 00:00:00',time());
+        $lists = DB::table('zsq_money')
+            ->where('create_time','>',$start_time)
+            ->orderBy('id','desc')
             ->get();
         $data = [];
-        foreach ($list as $info) {
-            $content = date('m-d H:i', strtotime($info->create_time)) . '      ' . $info->content
-                . ' : ' . $info->num;
+        foreach ($lists as $list) {
             $data[] = [
-                'id' => $info->id,
-                'content' => $content
+                'id'=>$list->id,
+                'type' => $list->type,
+                'num' => $list->num,
+                'content' => $list->content,
+                'needed' => $list->needed,
+                'time' => date('m-d H:s', strtotime($list->create_time)),
             ];
         }
         return json_encode([
             'msg' => 'success',
             'code' => 200,
-            'list' => $data
+            'data' => $data
         ]);
     }
+
+    public function delete()
+    {
+        var_dump($_POST);exit;
+        return json_encode([
+            'msg' => 'success',
+            'code' => 200,
+        ]);
+    }
+
 }

@@ -26,11 +26,14 @@ Route::any('basic/info', 'BasicInfoController@info');
 Route::any('mail/send', 'MailController@send');
 
 
-Route::middleware('cors')->any('vue/money/add', 'VueController@addMoney');
-Route::middleware('cors')->any('vue/money/list', 'VueController@listMoney');
-
-Route::group(['namespace'=>'Vue','middleware' => 'cors', 'prefix' => 'vue'], function () {
+Route::group(['namespace' => 'Vue', 'prefix' => 'vue'], function () {
     Route::any('basic/info', 'BasicInfoController@info');
+    Route::any('money/list', 'MoneyController@list');
+    Route::any('money/add', 'MoneyController@add');
+});
+
+Route::group(['namespace' => 'Vue', 'middleware' => 'cors', 'prefix' => 'vue'], function () {
+    Route::any('money/delete', 'MoneyController@delete');
 });
 
 /**
