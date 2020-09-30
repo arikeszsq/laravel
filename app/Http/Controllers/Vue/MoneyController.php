@@ -53,7 +53,11 @@ class MoneyController extends BaseController
     {
         $params = request()->all();
         $id = $params['id'];
-        DB::table('zsq_money')->where('id', $id)->delete();
+        if (isset($params['type']) && $params['type'] == 'salary') {
+            DB::table('zsq_salary')->where('id', $id)->delete();
+        } else {
+            DB::table('zsq_money')->where('id', $id)->delete();
+        }
         return $this->returnRet();
     }
 
