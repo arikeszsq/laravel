@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\Models\ZsqMoney;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class CountEveryMonth extends Command
 {
@@ -80,5 +81,17 @@ class CountEveryMonth extends Command
             'last' => $last_money,
             'create_time' => $before_month_last_day,
         ]);
+
+        $notice = '上月共计消费：' . $consume_money . ';除去房贷您共计消费约：' . intval($consume_money - 5200);
+
+        $notice_html = $notice . ';上月共计真实收入：' . $income_true_current_month;
+        $notice_html .= $notice . ';上月共计税前收入：' . $income_before_current_month;
+        $notice_html .= $notice . ';上月其他收入：' . $income_other_current_month ;
+        $notice_html .= $notice . ';上月总计收支剩余：' . $last_money;
+
+        Mail::raw($notice_html, function ($message) {
+            $to = '857355787@qq.com';
+            $message->to($to)->subject('月份数据报表');
+        });
     }
 }
