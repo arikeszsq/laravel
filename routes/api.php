@@ -31,6 +31,11 @@ Route::group(['namespace' => 'Vue', 'prefix' => 'vue'], function () {
     Route::any('money/list', 'MoneyController@list');
     Route::any('money/add', 'MoneyController@add');
     Route::any('money/delete', 'MoneyController@delete');
+    /**salary接口**/
+    Route::group(['prefix' => 'salary'], function () {
+        Route::any('add', 'SalaryController@add');
+        Route::any('delete', 'SalaryController@delete');
+    });
 });
 
 Route::group(['namespace' => 'Vue', 'middleware' => 'cors', 'prefix' => 'vue'], function () {

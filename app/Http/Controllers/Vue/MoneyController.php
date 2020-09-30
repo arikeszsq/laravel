@@ -4,6 +4,8 @@
 namespace App\Http\Controllers\Vue;
 
 
+use App\Models\ZsqMoney;
+use App\Models\ZsqSalary;
 use Illuminate\Support\Facades\DB;
 
 class MoneyController extends BaseController
@@ -26,17 +28,9 @@ class MoneyController extends BaseController
         ];
         $ret = DB::table('zsq_money')->insert($data);
         if ($ret == 1) {
-            return json_encode([
-                'msg' => 'success',
-                'code' => 200,
-                'data' => $data
-            ]);
+            return $this->returnRet($data);
         } else {
-            return json_encode([
-                'msg' => 'fail',
-                'code' => 5001,
-                'data' => $data
-            ]);
+            return $this->returnRet($data, 5001, 'fail');
         }
     }
 
@@ -44,26 +38,15 @@ class MoneyController extends BaseController
     {
         $params = request()->all();
         $start_time = date('Y-m-01 00:00:00', time());
-        $lists = DB::table('zsq_money')
-            ->where('create_time', '>', $start_time)
-            ->orderBy('id', 'desc')
-            ->get();
-        $data = [];
-        foreach ($lists as $list) {
-            $data[] = [
-                'id' => $list->id,
-                'type' => $list->type,
-                'num' => $list->num,
-                'content' => $list->content,
-                'needed' => $list->needed,
-                'time' => date('m-d H:s', strtotime($list->create_time)),
-            ];
+        if (isset($params['type']) && $params['type'] == 'salary') {
+            $salary = New ZsqSalary();
+            $data = $salary->getSalaryList($start_time);
+        } else {
+            $money = New ZsqMoney();
+            $data = $money->getMoneyList($start_time);
         }
-        return json_encode([
-            'msg' => 'success',
-            'code' => 200,
-            'data' => $data
-        ]);
+
+        return $this->returnRet($data);
     }
 
     public function delete()
@@ -71,10 +54,8 @@ class MoneyController extends BaseController
         $params = request()->all();
         $id = $params['id'];
         DB::table('zsq_money')->where('id', $id)->delete();
-        return json_encode([
-            'msg' => 'success',
-            'code' => 200,
-        ]);
+        return $this->returnRet();
     }
+
 
 }
