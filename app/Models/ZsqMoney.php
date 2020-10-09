@@ -38,7 +38,7 @@ class ZsqMoney extends Model
             ];
             $total += $list->num;
         }
-        $data['total'] = $total;
+        $data['total'] = $total.' : '.($total-5200);
         return $data;
     }
 }
