@@ -11,6 +11,7 @@ class BasicInfoController extends BaseController
 {
     public function info()
     {
+        $year_01_01 = date('Y-01-01 00:00:00', time());
         $current_month_01 = date('Y-m-01 00:00:00', time());
         $consume_money = ZsqMoney::getMonthTotal();
         $sip_money = DB::table('zsq_public_accumulation_funds')
@@ -32,7 +33,12 @@ class BasicInfoController extends BaseController
             ->sum('num');
 
         $last_money = $income_other_current_month + $income_true_current_month - $consume_money;
-
+        $salary_money = DB::table('zsq_salary')
+            ->where('get_time', '>=', $year_01_01)
+            ->sum('true_num');
+        $salary_before_money = DB::table('zsq_salary')
+            ->where('get_time', '>=', $year_01_01)
+            ->sum('before_num');
 
         $data = [
             ['name' => '本月总消费', 'value' => $consume_money],
@@ -44,6 +50,8 @@ class BasicInfoController extends BaseController
             ['name' => '本月实际收入', 'value' => $income_true_current_month],
             ['name' => '本月其他收入', 'value' => $income_other_current_month],
             ['name' => '最终结算', 'value' => intval($last_money)],
+            ['name' => '今年工资税后共计', 'value' => intval($salary_money)],
+            ['name' => '今年工资税前共计', 'value' => intval($salary_before_money)],
         ];
         return json_encode([
             'msg' => 'success',
