@@ -27,6 +27,12 @@ Route::group(['namespace' => 'Vue', 'prefix' => 'vue'], function () {
     Route::group(['prefix' => 'learn'], function () {
         Route::any('list', 'LearnController@list');
     });
+
+    /**All接口**/
+    Route::group(['prefix' => 'all'], function () {
+        Route::any('add', 'AllController@add');
+        Route::any('list', 'AllController@list');
+    });
 });
 
 Route::group(['namespace' => 'Vue', 'middleware' => 'cors', 'prefix' => 'vue'], function () {
