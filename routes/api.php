@@ -33,6 +33,12 @@ Route::group(['namespace' => 'Vue', 'prefix' => 'vue'], function () {
         Route::any('add', 'AllController@add');
         Route::any('list', 'AllController@list');
     });
+
+    /**Beauty接口**/
+    Route::group(['prefix' => 'beauty'], function () {
+        Route::any('list', 'BeautyController@list');
+    });
+
 });
 
 Route::group(['namespace' => 'Vue', 'middleware' => 'cors', 'prefix' => 'vue'], function () {
