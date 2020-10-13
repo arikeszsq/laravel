@@ -12,14 +12,14 @@ class BeautyController extends BaseController
     public function list()
     {
         $type = [
-            'https://img.yzcdn.cn/vant/apple-2.jpg',
-            'https://img.yzcdn.cn/vant/apple-2.jpg'
+            'http://101.133.161.125/imgs/123.png',
+            'http://101.133.161.125/imgs/123.png'
         ];
         $data = [
             [
                 'id' => 1,
                 'title' => 'test',
-                'cover' => 'https://img.yzcdn.cn/vant/apple-1.jpg',
+                'cover' => 'http://101.133.161.125/imgs/123.png',
                 'images' => $type
             ]
         ];
