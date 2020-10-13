@@ -13,6 +13,8 @@ Route::any('money/getList', 'MoneyController@getList');
 Route::any('basic/info', 'BasicInfoController@info');
 Route::any('mail/send', 'MailController@send');
 
+Route::any('pic/upload', 'UploadController@upload');
+
 Route::group(['namespace' => 'Vue', 'prefix' => 'vue'], function () {
     Route::any('basic/info', 'BasicInfoController@info');
     Route::any('money/list', 'MoneyController@list');
