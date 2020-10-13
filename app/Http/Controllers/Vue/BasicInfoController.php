@@ -40,23 +40,44 @@ class BasicInfoController extends BaseController
             ->where('get_time', '>=', $year_01_01)
             ->sum('before_num');
 
+        $today = date('Y-m-d', time());
+        $chunjie = '2021-02-12';
+        $yuandan = '2021-01-01';
+        $gap_chunjie = $this->diffBetweenTwoDays($today, $chunjie);
+        $gap_yuandan = $this->diffBetweenTwoDays($today, $yuandan);
+
         $data = [
+            ['name' => '本月最终结算', 'value' => intval($last_money)],
+            ['name' => '本月房贷外消费', 'value' => $consume_money - 5200],
             ['name' => '本月总消费', 'value' => $consume_money],
-            ['name' => '房贷外消费约', 'value' => $consume_money - 5200],
+            ['name' => '本月税前收入', 'value' => $income_before_current_month],
+            ['name' => '本月税后收入', 'value' => $income_true_current_month],
+            ['name' => '本月其他收入', 'value' => $income_other_current_month],
             ['name' => 'prf总额', 'value' => $total_money],
             ['name' => 'prf园', 'value' => $sip_money],
             ['name' => 'prf市', 'value' => $center_money],
-            ['name' => '本月税前收入', 'value' => $income_before_current_month],
-            ['name' => '本月实际收入', 'value' => $income_true_current_month],
-            ['name' => '本月其他收入', 'value' => $income_other_current_month],
-            ['name' => '最终结算', 'value' => intval($last_money)],
             ['name' => '今年工资税后共计', 'value' => intval($salary_money)],
             ['name' => '今年工资税前共计', 'value' => intval($salary_before_money)],
+            ['name' => '距离2021元旦', 'value' => intval($gap_yuandan)],
+            ['name' => '距离2021-02-12春节', 'value' => intval($gap_chunjie)],
         ];
         return json_encode([
             'msg' => 'success',
             'code' => 200,
             'data' => $data
         ]);
+    }
+
+
+    function diffBetweenTwoDays($day1, $day2)
+    {
+        $second1 = strtotime($day1);
+        $second2 = strtotime($day2);
+        if ($second1 < $second2) {
+            $tmp = $second2;
+            $second2 = $second1;
+            $second1 = $tmp;
+        }
+        return ($second1 - $second2) / 86400;
     }
 }
