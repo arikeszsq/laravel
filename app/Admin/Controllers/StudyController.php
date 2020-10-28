@@ -75,7 +75,7 @@ class StudyController extends AdminController
         $form = new Form(new ZsqStudy());
 
         $form->select('type', __('类型'))->options($directors);;
-        $form->text('name', __('名称'))->ckeditor;
+        $form->text('name', __('名称'));
         $form->text('description', __('描述'));
         $form->textarea('content', __('内容'));
         $form->datetime('create_time', __('创建时间'))->default(date('Y-m-d H:i:s'));
