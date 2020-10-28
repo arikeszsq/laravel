@@ -13,6 +13,8 @@ Route::group([
 
     $router->get('/', 'HomeController@index')->name('home');
     $router->resource('ztt-webs', ZttWebController::class);
+    $router->resource('zsq-studies', StudyController::class);
+
 
 });
 
