@@ -4,7 +4,7 @@
 namespace App\Http\Controllers\Vue;
 
 
-use App\Models\ZsqMoney;
+use App\Models\ZsqMoneyConsume;
 use Illuminate\Support\Facades\DB;
 
 class BasicInfoController extends BaseController
@@ -13,22 +13,21 @@ class BasicInfoController extends BaseController
     {
         $year_01_01 = date('Y-01-01 00:00:00', time());
         $current_month_01 = date('Y-m-01 00:00:00', time());
-        $consume_money = ZsqMoney::getMonthTotal();
-        $sip_money = DB::table('zsq_public_accumulation_funds')
+        $consume_money = ZsqMoneyConsume::getMonthTotal();
+        $sip_money = DB::table('zsq_company_prf')
             ->where('type', 1)
             ->sum('add_num');
-        $center_money = DB::table('zsq_public_accumulation_funds')
+        $center_money = DB::table('zsq_company_prf')
             ->where('type', 2)
             ->sum('add_num');
-        $total_money = DB::table('zsq_public_accumulation_funds')->sum('add_num');
-        $income_true_current_month = DB::table('zsq_salary')
+        $total_money = DB::table('zsq_company_prf')->sum('add_num');
+        $income_true_current_month = DB::table('zsq_company_salary')
             ->where('get_time', '>', $current_month_01)
             ->sum('true_num');
-        $income_before_current_month = DB::table('zsq_salary')
+        $income_before_current_month = DB::table('zsq_company_salary')
             ->where('get_time', '>', $current_month_01)
             ->sum('before_num');
-        $income_other_current_month = DB::table('zsq_money')
-            ->where('type', 2)
+        $income_other_current_month = DB::table('zsq_money_earn')
             ->where('create_time', '>', $current_month_01)
             ->sum('num');
 

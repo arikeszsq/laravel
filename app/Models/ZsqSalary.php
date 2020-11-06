@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 
 class ZsqSalary extends Model
 {
-    public $table = 'zsq_salary';
+    public $table = 'zsq_company_salary';
 
     public function getSalaryList($start_time)
     {

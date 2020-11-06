@@ -5,14 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
-class ZsqMoney extends Model
+class ZsqMoneyConsume extends Model
 {
-    public $table = 'zsq_money';
+    public $table = 'zsq_money_consume';
 
     public static function getMonthTotal()
     {
         $current_month = date('Y-m-01 00:00:00', time());
-        $consume_money = ZsqMoney::where('create_time', '>', $current_month)
+        $consume_money = ZsqMoneyConsume::where('create_time', '>', $current_month)
             ->where('type', 1)
             ->sum('num');
         return intval($consume_money);
@@ -21,7 +21,7 @@ class ZsqMoney extends Model
     public function getMoneyList($start_time)
     {
         $data = [];
-        $lists = ZsqMoney::query()
+        $lists = ZsqMoneyConsume::query()
             ->where('create_time', '>', $start_time)
             ->orderBy('id', 'desc')
             ->get();

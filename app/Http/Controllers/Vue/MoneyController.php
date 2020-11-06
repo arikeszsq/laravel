@@ -4,7 +4,7 @@
 namespace App\Http\Controllers\Vue;
 
 
-use App\Models\ZsqMoney;
+use App\Models\ZsqMoneyConsume;
 use App\Models\ZsqSalary;
 use Illuminate\Support\Facades\DB;
 
@@ -42,7 +42,7 @@ class MoneyController extends BaseController
             $salary = New ZsqSalary();
             $data = $salary->getSalaryList($start_time);
         } else {
-            $money = New ZsqMoney();
+            $money = New ZsqMoneyConsume();
             $data = $money->getMoneyList($start_time);
         }
 

@@ -18,7 +18,7 @@ class AllController extends BaseController
             'content' => isset($params['content']) && $params['content'] ? $params['content'] : null,
             'create_time' => date('Y-m-d H:i:s', time())
         ];
-        $ret = DB::table('zsq_all')->insert($data);
+        $ret = DB::table('zsq_all_consider')->insert($data);
         if ($ret == 1) {
             return $this->returnRet($data);
         } else {
@@ -29,7 +29,7 @@ class AllController extends BaseController
     public function list()
     {
         $params = request()->all();
-        $list = DB::table('zsq_all')->orderBy('id', 'desc')->get();
+        $list = DB::table('zsq_all_consider')->orderBy('id', 'desc')->get();
         $data = [];
         foreach ($list as $item) {
             $data[] = [

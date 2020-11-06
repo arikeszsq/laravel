@@ -4,8 +4,6 @@
 namespace App\Http\Controllers\Vue;
 
 
-use App\Models\ZsqMoney;
-use App\Models\ZsqSalary;
 use Illuminate\Support\Facades\DB;
 
 class SalaryController extends BaseController
@@ -28,7 +26,7 @@ class SalaryController extends BaseController
                     'get_time' => date('Y-m-d H:i:s', $get_date / 1000),
                     'create_time' => date('Y-m-d H:i:s', time())
                 ];
-                $ret = DB::table('zsq_salary')->insert($data);
+                $ret = DB::table('zsq_company_salary')->insert($data);
                 if ($ret == 1) {
                     return $this->returnRet($data);
                 }
@@ -39,7 +37,7 @@ class SalaryController extends BaseController
                     'content' => $content,
                     'create_time' => date('Y-m-d H:i:s', time())
                 ];
-                $ret = DB::table('zsq_money')->insert($data);
+                $ret = DB::table('zsq_money_earn')->insert($data);
                 if ($ret == 1) {
                     return $this->returnRet($data);
                 }
@@ -53,7 +51,7 @@ class SalaryController extends BaseController
     {
         $params = request()->all();
         $id = $params['id'];
-        DB::table('zsq_salary')->where('id', $id)->delete();
+        DB::table('zsq_company_salary')->where('id', $id)->delete();
         return $this->returnRet();
     }
 
