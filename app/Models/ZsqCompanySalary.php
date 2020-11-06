@@ -5,14 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
-class ZsqSalary extends Model
+class ZsqCompanySalary extends Model
 {
     public $table = 'zsq_company_salary';
 
     public function getSalaryList($start_time)
     {
         $data = [];
-        $lists = ZsqSalary::query()
+        $lists = ZsqCompanySalary::query()
             ->where('get_time', '>', $start_time)
             ->orderBy('id', 'desc')
             ->get();

@@ -4,7 +4,7 @@
 namespace App\Http\Controllers;
 
 
-use App\Models\ZsqMoney;
+use App\Models\ZsqMoneyConsume;
 use Illuminate\Support\Facades\DB;
 
 class MoneyController extends Controller
@@ -40,7 +40,7 @@ class MoneyController extends Controller
 
     public function getCountMoney()
     {
-        $total_money = ZsqMoney::getMonthTotal();
+        $total_money = ZsqMoneyConsume::getMonthTotal();
         return json_encode([
             'msg' => 'success',
             'code' => 200,
@@ -50,7 +50,7 @@ class MoneyController extends Controller
 
     public function getList()
     {
-        $list = DB::table('zsq_money')
+        $list = DB::table('zsq_money_consume')
             ->get();
         return json_encode([
             'msg' => 'success',

@@ -13,29 +13,38 @@ class BasicInfoController extends BaseController
     {
         $year_01_01 = date('Y-01-01 00:00:00', time());
         $current_month_01 = date('Y-m-01 00:00:00', time());
+
         $consume_money = ZsqMoneyConsume::getMonthTotal();
+
         $sip_money = DB::table('zsq_company_prf')
             ->where('type', 1)
             ->sum('add_num');
+
         $center_money = DB::table('zsq_company_prf')
             ->where('type', 2)
             ->sum('add_num');
+
         $total_money = DB::table('zsq_company_prf')->sum('add_num');
+
         $income_true_current_month = DB::table('zsq_company_salary')
             ->where('get_time', '>', $current_month_01)
             ->sum('true_num');
+
         $income_before_current_month = DB::table('zsq_company_salary')
             ->where('get_time', '>', $current_month_01)
             ->sum('before_num');
+
         $income_other_current_month = DB::table('zsq_money_earn')
             ->where('create_time', '>', $current_month_01)
             ->sum('num');
 
         $last_money = $income_other_current_month + $income_true_current_month - $consume_money;
-        $salary_money = DB::table('zsq_salary')
+
+
+        $salary_money = DB::table('zsq_company_salary')
             ->where('get_time', '>=', $year_01_01)
             ->sum('true_num');
-        $salary_before_money = DB::table('zsq_salary')
+        $salary_before_money = DB::table('zsq_company_salary')
             ->where('get_time', '>=', $year_01_01)
             ->sum('before_num');
 
