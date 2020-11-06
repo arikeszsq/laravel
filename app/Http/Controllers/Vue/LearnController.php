@@ -14,7 +14,7 @@ class LearnController extends BaseController
         $type = isset($params['type']) && $params['type'] ? $params['type'] : '';
         $data = [];
 //        if ($type) {
-        $list = DB::table('zsq_everyday_shici')->get();
+        $list = DB::table('zsq_everyday_shici')->orderBy('id','desc')->get();
         foreach ($list as $item) {
             $data[] = [
                 'title' => $item->title,
