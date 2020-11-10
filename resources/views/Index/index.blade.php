@@ -1,6 +1,5 @@
 @include('common.header',['title'=>'主页'])
 <script type="text/javascript" src="{{ asset('js/echarts.js') }}"></script>
-<div id="contain" style="width: 100%;height:600px;"></div>
 
 <div class="container">
     <div class="row">
@@ -13,6 +12,10 @@
         </form>
     </div>
 </div>
+
+<div id="contain" style="width: 100%;height:600px;"></div>
+
+
 
 <script>
     $('#submit_form').click(function () {
