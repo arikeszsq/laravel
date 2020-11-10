@@ -17,6 +17,10 @@ use Illuminate\Support\Facades\Route;
 //    return view('welcome');
 //});
 
-Route::get('/', function () {
-    return view('index');
-});
+//Route::get('/', function () {
+//    return view('index');
+//});
+
+Route::get('/', 'IndexController@index');
+Route::post('/getData', 'IndexController@getData');
+Route::post('/add', 'IndexController@add');
