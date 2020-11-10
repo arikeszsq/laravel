@@ -2,13 +2,34 @@
 <script type="text/javascript" src="{{ asset('js/echarts.js') }}"></script>
 <div id="contain" style="width: 100%;height:600px;"></div>
 
-<div id="weight_form" class="text-center">
-    <form action="/add" method="post">
-        <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
-        <p>值: <input type="text" name="int"/></p>
-        <input type="submit" value="Submit"/>
-    </form>
+<div class="container">
+    <div class="row">
+        <form class="navbar-form navbar-left" id="form_weight">
+            <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
+            <div class="input-group">
+                <input type="text" class="form-control" name="int"/>
+            </div>
+            <button type="button" id="submit_form" class="btn btn-default">记录今日</button>
+        </form>
+    </div>
 </div>
+
+<script>
+    $('#submit_form').click(function () {
+        $.ajax({
+            type: "POST",//方法类型
+            dataType: "json",//预期服务器返回的数据类型
+            url: "/add",//url
+            data: $('#form_weight').serialize(),
+            success: function (ret) {
+                console.log(ret);//打印服务端返回的数据(调试用)
+                alert(ret.msg);
+            }
+        });
+    })
+
+</script>
+
 
 <script type="text/javascript">
     var names = [];
