@@ -38,7 +38,7 @@
                     <a href="/charts/weight">数据报表</a>
                 </li>
                 <li>
-                    <a href="#">鞋靴箱包</a>
+                    <a href="/study/index">学习强国</a>
                 </li>
                 <li>
                     <a href="#">香烟酒水</a>

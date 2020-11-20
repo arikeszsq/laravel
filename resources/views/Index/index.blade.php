@@ -1,13 +1,13 @@
 @include('common.header',['title'=>'主页'])
 
-{{--<div class="container">--}}
+<div class="container">
     @include('common.leader')
     @include('common.banner')
 
 
 
 
-{{--</div>--}}
+</div>
 @include('common.footer')
 
 

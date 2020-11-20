@@ -33,3 +33,8 @@ Route::group(['prefix' => 'blog'], function () {
     Route::any('blog', 'BlogController@index')->name('blog');
 });
 
+Route::group(['prefix' => 'study'], function () {
+    Route::any('index', 'StudyController@index')->name('index');
+    Route::any('list', 'StudyController@list')->name('list');
+});
+
