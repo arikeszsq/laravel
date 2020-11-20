@@ -1,15 +1,15 @@
 <!--LOGO部分-->
 <div class="row">
-    <div class="col-md-4">
-        <img src="/imgs/logo_mini.png"/>
+    <div class="col-lg-4 visible-lg-block" style="height: 50px;line-height: 50px;">
+        <img src="/imgs/logo_big.png" style="border-radius: 10px;height: 46px;"/>
     </div>
-    <div class="col-md-4">
-        <img src="/imgs/logo_mini.png"/>
+    <div class="col-md-4 col-xs-2  visible-md-block visible-xs-block" style="height: 50px;line-height: 50px;">
+        <img src="/imgs/logo_mini.png" style="height: 46px; margin-left: 5px;"/>
     </div>
-    <div class="col-md-4" style="line-height: 50px; height: 50px;">
-        <a href="#">登录</a>
-        <a href="#">注册</a>
-        <a href="#">购物车</a>
+    <div class="col-md-8 col-lg-8 col-xs-10" style="line-height: 50px; height: 50px; text-align: right;">
+        <a class="btn btn-info" href="#">登录</a>
+        <a class="btn btn-success" href="#">注册</a>
+        <a class="btn btn-primary" href="#">购物车</a>
     </div>
 </div>
 
