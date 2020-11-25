@@ -12,7 +12,13 @@
         <a class="btn btn-primary" href="#">购物车</a>
     </div>
 </div>
-
+<style>
+    .active{
+        font-size: 16px;
+        font-weight: bolder;
+        background-color: lightblue;
+    }
+</style>
 <!--导航栏部分-->
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
@@ -31,13 +37,13 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li class="active">
+                <li>
                     <a href="#">手机数码 <span class="sr-only">(current)</span></a>
                 </li>
                 <li>
                     <a href="/charts/weight">数据报表</a>
                 </li>
-                <li>
+                <li class="active">
                     <a href="/study/index">学习强国</a>
                 </li>
                 <li>
