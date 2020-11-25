@@ -8,6 +8,9 @@ use Illuminate\Support\Facades\DB;
 
 class UploadController extends Controller
 {
+    public function index(){
+        return view('upload.index');
+    }
     public function upload()
     {
         $path = base_path();//根目录

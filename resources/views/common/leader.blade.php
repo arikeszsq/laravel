@@ -47,7 +47,7 @@
                     <a href="/study/index">学习强国</a>
                 </li>
                 <li>
-                    <a href="#">香烟酒水</a>
+                    <a href="/upload/index">Upload</a>
                 </li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"

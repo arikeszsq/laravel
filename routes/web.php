@@ -38,3 +38,7 @@ Route::group(['prefix' => 'study'], function () {
     Route::any('list', 'StudyController@list')->name('list');
 });
 
+Route::group(['prefix' => 'upload'], function () {
+    Route::any('index', 'UploadController@index')->name('index');
+});
+
