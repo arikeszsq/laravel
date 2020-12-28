@@ -7,6 +7,12 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+/** api/weChat/Index/basicInfo **/
+Route::group(['namespace' => 'WeChat', 'prefix' => 'weChat'], function () {
+    Route::any('Index/saveUser', 'IndexController@saveUser')->name('saveUser');
+    Route::any('Index/basicInfo', 'IndexController@basicInfo')->name('basicInfo');
+});
+
 Route::any('money/add', 'MoneyController@add');
 Route::any('money/getCountMoney', 'MoneyController@getCountMoney');
 Route::any('money/getList', 'MoneyController@getList');
