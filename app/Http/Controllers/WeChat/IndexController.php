@@ -11,6 +11,36 @@ use Illuminate\Support\Facades\DB;
 
 class IndexController extends BaseController
 {
+    public function getInfo(Request $request)
+    {
+        $params = $request->all();
+        $appid = $params['appid'];
+        $notices = DB::table('mini_notice')
+            ->where('status', 1)
+            ->get();
+        $lists = DB::table('mini_list')
+            ->where('appid', $appid)
+            ->where('status', 1)
+            ->get();
+        $reminds = DB::table('mini_remind')
+            ->where('appid', $appid)
+            ->where('status', 1)
+            ->get();
+        $remind_img = 'https://zhusq.top/banner/1.jpg';
+
+        $response = [
+            'notices' => $notices,
+            'lists' => $lists,
+            'reminds' => $reminds,
+            'remind_img' => $remind_img,
+        ];
+        return json_encode([
+            'code' => 200,
+            'msg' => 'success',
+            'response' => $response
+        ]);
+    }
+
     public function basicInfo()
     {
 

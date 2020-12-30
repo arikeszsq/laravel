@@ -13,6 +13,7 @@ Route::group(['namespace' => 'WeChat', 'prefix' => 'weChat'], function () {
     /** api/weChat/Index/saveUser **/
     Route::group(['prefix' => 'Index'], function () {
         Route::any('saveUser', 'IndexController@saveUser')->name('saveUser');
+        Route::any('getInfo', 'IndexController@getInfo')->name('getInfo');
         Route::any('basicInfo', 'IndexController@basicInfo')->name('basicInfo');
     });
 
