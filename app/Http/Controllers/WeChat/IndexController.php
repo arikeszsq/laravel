@@ -17,14 +17,17 @@ class IndexController extends BaseController
         $appid = $params['appid'];
         $notices = DB::table('mini_notice')
             ->where('status', 1)
+            ->orderBy('id','desc')
             ->get();
         $lists = DB::table('mini_list')
-            ->where('appid', $appid)
+            ->where('recommand', 1)
             ->where('status', 1)
+            ->orderBy('id', 'desc')
             ->get();
         $reminds = DB::table('mini_remind')
             ->where('appid', $appid)
             ->where('status', 1)
+            ->orderBy('id','desc')
             ->get();
         $remind_img = 'https://zhusq.top/banner/1.jpg';
 
@@ -39,6 +42,35 @@ class IndexController extends BaseController
             'msg' => 'success',
             'response' => $response
         ]);
+    }
+
+    public function getLists(Request $request)
+    {
+        $params = $request->all();
+        $appid = $params['appid'];
+        $type = $params['type'];
+//        if ($appid) {
+//            $lists = DB::table('mini_list')
+//                ->where('appid', $appid)
+//                ->where('type', $type)
+//                ->where('status', 1)
+//                ->get();
+//        } else {
+        $lists = DB::table('mini_list')
+            ->where('type', $type)
+            ->where('status', 1)
+            ->orderBy('id','desc')
+            ->get();
+//        }
+        $response = [
+            'lists' => $lists
+        ];
+        return json_encode([
+            'code' => 200,
+            'msg' => 'success',
+            'response' => $response
+        ]);
+
     }
 
     public function basicInfo()
@@ -131,4 +163,5 @@ class IndexController extends BaseController
             ]);
         }
     }
+
 }
