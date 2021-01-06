@@ -7,6 +7,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+/**commit test**/
 
 Route::group(['namespace' => 'WeChat', 'prefix' => 'weChat'], function () {
 
