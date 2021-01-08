@@ -14,7 +14,7 @@ class IndexController extends BaseController
     public function getInfo(Request $request)
     {
         $params = $request->all();
-        $appid = $params['appid'];
+        $openid = $params['openid'];
         $notices = DB::table('mini_notice')
             ->where('status', 1)
             ->orderBy('id','desc')
@@ -25,7 +25,7 @@ class IndexController extends BaseController
             ->orderBy('id', 'desc')
             ->get();
         $reminds = DB::table('mini_remind')
-            ->where('appid', $appid)
+            ->where('appid', $openid)
             ->where('status', 1)
             ->orderBy('id','desc')
             ->get();
