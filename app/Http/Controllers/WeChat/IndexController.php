@@ -14,21 +14,27 @@ class IndexController extends BaseController
     public function getInfo(Request $request)
     {
         $params = $request->all();
-        $openid = $params['openid'];
+        $openid = isset($params['openid']) && $params['openid'] ? $params['openid'] : null;
         $notices = DB::table('mini_notice')
             ->where('status', 1)
-            ->orderBy('id','desc')
+            ->orderBy('id', 'desc')
             ->get();
         $lists = DB::table('mini_list')
             ->where('recommand', 1)
             ->where('status', 1)
             ->orderBy('id', 'desc')
             ->get();
-        $reminds = DB::table('mini_remind')
-            ->where('appid', $openid)
-            ->where('status', 1)
-            ->orderBy('id','desc')
-            ->get();
+
+        if ($openid) {
+            $reminds = DB::table('mini_remind')
+                ->where('appid', $openid)
+                ->where('status', 1)
+                ->orderBy('id', 'desc')
+                ->get();
+        } else {
+            $reminds = '';
+        }
+
         $remind_img = 'https://zhusq.top/banner/1.jpg';
 
         $response = [
@@ -56,7 +62,7 @@ class IndexController extends BaseController
         $lists = DB::table('mini_list')
             ->where('type', $type)
             ->where('status', 1)
-            ->orderBy('id','desc')
+            ->orderBy('id', 'desc')
             ->get();
         $response = [
             'lists' => $lists
