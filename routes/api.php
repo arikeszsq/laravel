@@ -17,6 +17,7 @@ Route::group(['namespace' => 'WeChat', 'prefix' => 'weChat'], function () {
         Route::any('getInfo', 'IndexController@getInfo')->name('getInfo');
         Route::any('basicInfo', 'IndexController@basicInfo')->name('basicInfo');
         Route::any('getLists', 'IndexController@getLists')->name('getLists');
+        Route::any('getDetail', 'IndexController@getDetail')->name('getDetail');
     });
 
     /** api/weChat/BasicInfo/info **/
@@ -27,6 +28,8 @@ Route::group(['namespace' => 'WeChat', 'prefix' => 'weChat'], function () {
     /** api/weChat/Consume/add **/
     Route::group(['prefix' => 'Consume'], function () {
         Route::any('add', 'ConsumeController@add')->name('add');
+        Route::any('getList', 'ConsumeController@getList')->name('getList');
+        Route::any('delete', 'ConsumeController@delete')->name('delete');
     });
 
 });

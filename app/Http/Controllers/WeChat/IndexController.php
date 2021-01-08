@@ -44,24 +44,20 @@ class IndexController extends BaseController
         ]);
     }
 
+    /**
+     * 首页精选列表
+     * @param Request $request
+     * @return false|string
+     */
     public function getLists(Request $request)
     {
         $params = $request->all();
-        $appid = $params['appid'];
         $type = $params['type'];
-//        if ($appid) {
-//            $lists = DB::table('mini_list')
-//                ->where('appid', $appid)
-//                ->where('type', $type)
-//                ->where('status', 1)
-//                ->get();
-//        } else {
         $lists = DB::table('mini_list')
             ->where('type', $type)
             ->where('status', 1)
             ->orderBy('id','desc')
             ->get();
-//        }
         $response = [
             'lists' => $lists
         ];
@@ -73,12 +69,25 @@ class IndexController extends BaseController
 
     }
 
+    public function getDetail(Request $request)
+    {
+        $params = $request->all();
+        $id = $params['id'];
+        $detail = DB::table('mini_list')
+            ->where('id', $id)
+            ->first();
+        $response = [
+            'detail' => $detail
+        ];
+        return json_encode([
+            'code' => 200,
+            'msg' => 'success',
+            'response' => $response
+        ]);
+    }
+
     public function basicInfo()
     {
-
-
-        var_dump($_POST);
-        exit;
     }
 
     public function saveUser(Request $request)

@@ -13,44 +13,25 @@ class BasicInfoController extends BaseController
     public function info(Request $request)
     {
         $params = $request->all();
-//        $openid = $params['openid'];
-        $openid ='';
-        $year_01_01 = date('Y-01-01 00:00:00', time());
-        $current_month_01 = date('Y-m-01 00:00:00', time());
+        $openid = $params['openid'];
+//        $openid = 'oHkmd5fKiNJkX9EJaAbJSOnTiboQ';
 
-        $consume_money = ZsqMoneyConsume::getMonthTotal();
+        $BeginDate = date('Y-m-01 00:00:00', strtotime(date("Y-m-d")));
+        $LastDate = date('Y-m-d 23:59:59', strtotime("$BeginDate +1 month -1 day"));
 
-        $sip_money = DB::table('zsq_company_prf')
-            ->where('type', 1)
-            ->sum('add_num');
-
-        $center_money = DB::table('zsq_company_prf')
-            ->where('type', 2)
-            ->sum('add_num');
-
-        $total_money = DB::table('zsq_company_prf')->sum('add_num');
-
-        $income_true_current_month = DB::table('zsq_company_salary')
-            ->where('get_time', '>', $current_month_01)
-            ->sum('true_num');
-
-        $income_before_current_month = DB::table('zsq_company_salary')
-            ->where('get_time', '>', $current_month_01)
-            ->sum('before_num');
-
-        $income_other_current_month = DB::table('zsq_money_earn')
-            ->where('create_time', '>', $current_month_01)
+        $income = DB::table('zsq_money_earn')
+            ->where('create_time', '>=', $BeginDate)
+            ->where('create_time', '<=', $LastDate)
+            ->where('user_id', $openid)
             ->sum('num');
 
-        $last_money = $income_other_current_month + $income_true_current_month - $consume_money;
+        $out = DB::table('zsq_money_consume')
+            ->where('create_time', '>=', $BeginDate)
+            ->where('create_time', '<=', $LastDate)
+            ->where('user_id', $openid)
+            ->sum('num');
 
-
-        $salary_money = DB::table('zsq_company_salary')
-            ->where('get_time', '>=', $year_01_01)
-            ->sum('true_num');
-        $salary_before_money = DB::table('zsq_company_salary')
-            ->where('get_time', '>=', $year_01_01)
-            ->sum('before_num');
+        $last_money = $income - $out;
 
         $today = date('Y-m-d', time());
         $chunjie = '2021-02-12';
@@ -58,32 +39,14 @@ class BasicInfoController extends BaseController
         $gap_chunjie = $this->diffBetweenTwoDays($today, $chunjie);
         $gap_yuandan = $this->diffBetweenTwoDays($today, $yuandan);
 
+        $data = [
+            ['name' => '本月消费', 'value' => $out],
+            ['name' => '本月收入', 'value' => $income],
+            ['name' => '本月结算', 'value' => $last_money],
+            ['name' => '距2022元旦剩余', 'value' => intval($gap_yuandan)],
+            ['name' => '距2021春节剩余', 'value' => intval($gap_chunjie)],
+        ];
 
-        if($openid=='oHkmd5fKiNJkX9EJaAbJSOnTiboQ'){
-            $data = [
-                ['name' => '距离2022元旦', 'value' => intval($gap_yuandan)],
-                ['name' => '距离2021-02-12春节', 'value' => intval($gap_chunjie)],
-                ['name' => '本月最终结算', 'value' => intval($last_money)],
-                ['name' => '本月房贷外消费', 'value' => $consume_money - 5200],
-                ['name' => '本月总消费', 'value' => $consume_money],
-                ['name' => '本月税前收入', 'value' => $income_before_current_month],
-                ['name' => '本月税后收入', 'value' => $income_true_current_month],
-                ['name' => '本月其他收入', 'value' => $income_other_current_month],
-                ['name' => 'prf总额', 'value' => $total_money],
-                ['name' => 'prf园', 'value' => $sip_money],
-                ['name' => 'prf市', 'value' => $center_money],
-                ['name' => '今年工资税后共计', 'value' => intval($salary_money)],
-                ['name' => '今年工资税前共计', 'value' => intval($salary_before_money)],
-            ];
-        }else{
-            $data = [
-                ['name' => '距离2022元旦', 'value' => intval($gap_yuandan)],
-                ['name' => '距离2021-02-12春节', 'value' => intval($gap_chunjie)],
-                ['name' => '本月最终结算', 'value' => intval($last_money)],
-                ['name' => '本月总消费', 'value' => $consume_money],
-                ['name' => '本月总收入', 'value' => $consume_money],
-            ];
-        }
         return json_encode([
             'msg' => 'success',
             'code' => 200,
