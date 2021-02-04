@@ -19,29 +19,87 @@ class IndexController extends BaseController
             ->where('status', 1)
             ->orderBy('id', 'desc')
             ->get();
+//        $lists = DB::table('mini_list')
+//            ->where('recommand', 1)
+//            ->where('status', 1)
+//            ->orderBy('id', 'desc')
+//            ->get();
+//
+//        if ($openid) {
+//            $reminds = DB::table('mini_remind')
+//                ->where('appid', $openid)
+//                ->where('status', 1)
+//                ->orderBy('id', 'desc')
+//                ->get();
+//        } else {
+//            $reminds = '';
+//        }
+//
+//        $remind_img = 'https://zhusq.top/banner/1.jpg';
+
+//        $response = [
+//            'body_bg'=>'',
+//            'icon'=>'',
+//            'imgUrls'=>'',
+//            'logo'=>'',
+//            ''=>'',
+//            ''=>'',
+//            ''=>'',
+//            'body_bg': response.body_bg,
+//          icon: response.icon,
+//          imgUrls: response.banners,
+//          logo: response.logo,
+//          remind_img: response.remind_img,
+//          lists: response.lists,
+//          fashion_left: response.fashion_left,
+//          fashion_right: response.fashion_right,
+//          fashion_banner: response.fashion_banner,
+//
+//            'notices' => $notices,
+//            'lists' => $lists,
+//            'reminds' => $reminds,
+//            'remind_img' => $remind_img,
+//        ];
+
+        $params = $request->all();
+        $openid = isset($params['openid']) && $params['openid'] ? $params['openid'] : null;
+        $notices = DB::table('mini_notice')
+            ->where('status', 1)
+            ->orderBy('id', 'desc')
+            ->get();
         $lists = DB::table('mini_list')
             ->where('recommand', 1)
             ->where('status', 1)
             ->orderBy('id', 'desc')
             ->get();
 
-        if ($openid) {
-            $reminds = DB::table('mini_remind')
-                ->where('appid', $openid)
-                ->where('status', 1)
-                ->orderBy('id', 'desc')
-                ->get();
-        } else {
-            $reminds = '';
-        }
-
-        $remind_img = 'https://zhusq.top/banner/1.jpg';
-
+        $banners = DB::table('mini_banners')
+            ->orderBy('id', 'desc')
+            ->get();
         $response = [
             'notices' => $notices,
+            'body_bg' => 'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2516670539,581273479&fm=26&gp=0.jpg',
+            'icon' => 'https://sucai.suoluomei.cn/sucai_zs/images/20200509144507-broadcast%402x.png',
+            'logo' => 'https://gss0.baidu.com/70cFfyinKgQFm2e88IuM_a/forum/w=580/sign=4b62c335ec24b899de3c79305e061d59/74ceab4bd11373f0e15886aaa10f4bfbfbed0429.jpg',
+            'banners' => $banners,
             'lists' => $lists,
-            'reminds' => $reminds,
-            'remind_img' => $remind_img,
+            'fashion_left' => 'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2516670539,581273479&fm=26&gp=0.jpg',
+            'fashion_right' => [
+                ['title' => '吴尊', 'pic' => 'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2516670539,581273479&fm=26&gp=0.jpg'],
+                ['title' => '吴尊', 'pic' => 'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2516670539,581273479&fm=26&gp=0.jpg']
+            ],
+            'fashion_banner' => [
+                [
+                    'pic1' => 'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2516670539,581273479&fm=26&gp=0.jpg',
+                    'pic2' => 'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2516670539,581273479&fm=26&gp=0.jpg',
+                    'pic3' => 'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2516670539,581273479&fm=26&gp=0.jpg'
+                ],
+                [
+                    'pic1' => 'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2516670539,581273479&fm=26&gp=0.jpg',
+                    'pic2' => 'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2516670539,581273479&fm=26&gp=0.jpg',
+                    'pic3' => 'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2516670539,581273479&fm=26&gp=0.jpg'
+                ]
+            ]
         ];
         return json_encode([
             'code' => 200,

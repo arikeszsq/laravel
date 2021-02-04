@@ -1,5 +1,4 @@
 @include('common.header',['title'=>'主页'])
-<div class="container">
 @include('common.leader')
 <script type="text/javascript" src="{{ asset('js/echarts.js') }}"></script>
 
