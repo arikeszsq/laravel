@@ -32,6 +32,8 @@ $category = $_GET['category'] ?? 0;
                         <li><a href="/pc/common/list?category=4&list_type=3">学习强国</a></li>
                         <li role="separator" class="divider"></li>
                         <li><a href="/pc/common/list?category=4&list_type=4">技术博客</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="/pc/common/list?category=4&list_type=5">晨读</a></li>
                     </ul>
                 </li>
             </ul>

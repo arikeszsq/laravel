@@ -4,7 +4,6 @@
 namespace App\Http\Controllers\WeChat;
 
 
-use App\Models\ZsqMoneyConsume;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -19,16 +18,16 @@ class BasicInfoController extends BaseController
         $BeginDate = date('Y-m-01 00:00:00', strtotime(date("Y-m-d")));
         $LastDate = date('Y-m-d 23:59:59', strtotime("$BeginDate +1 month -1 day"));
 
-        $income = DB::table('zsq_money_earn')
+        $income = DB::table('min_money_earn')
             ->where('create_time', '>=', $BeginDate)
             ->where('create_time', '<=', $LastDate)
-            ->where('user_id', $openid)
+            ->where('open_id', $openid)
             ->sum('num');
 
-        $out = DB::table('zsq_money_consume')
+        $out = DB::table('min_money_consume')
             ->where('create_time', '>=', $BeginDate)
             ->where('create_time', '<=', $LastDate)
-            ->where('user_id', $openid)
+            ->where('open_id', $openid)
             ->sum('num');
 
         $last_money = $income - $out;

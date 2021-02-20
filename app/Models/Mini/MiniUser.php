@@ -9,12 +9,12 @@ use Illuminate\Support\Facades\DB;
 
 class MiniUser extends Model
 {
-    public $table = 'mini_user';
+    public $table = 'mini_user_info';
 
     public function getUserByOpenid($openId)
     {
         $user = MiniUser::query()
-            ->where('openid', $openId)
+            ->where('open_id', $openId)
             ->first();
         return $user;
     }
